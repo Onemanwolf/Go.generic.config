@@ -258,7 +258,7 @@ func main() {
 
 1. **Simplified Parsing**:
    - The `godotenv` package handles parsing .env files, reducing the need for custom logic.
-   
+
 2. **Fallback Mechanism**:
    - If the .env file is not found, the program seamlessly falls back to system environment variables.
 
@@ -280,3 +280,103 @@ If the .env file is missing, and the corresponding environment variables are not
 ---
 
 This example demonstrates how to integrate the `github.com/joho/godotenv` package into your configuration management workflow, making it easier to manage environment variables in Go applications.
+
+
+
+### Documentation: Setting Environment Variables in Bash
+
+The provided commands.sh script is used to set environment variables for a Go application. These variables can be accessed by the application during runtime to configure its behavior.
+
+---
+
+### Script Overview
+
+The script uses the `export` command to define and set environment variables in the current shell session. These variables are typically used to configure application settings such as database connections, authentication credentials, and debug modes.
+
+#### Example Script: commands.sh
+```bash
+## Set environment variables
+export MONGO_HOST="mongodb.atlas.example.com"
+export MONGO_PORT="27017"
+export MONGO_USER="admin"
+export MONGO_PASSWORD="supersecretpassword"
+export DEBUG_MODE="true"
+```
+
+---
+
+### Explanation of Each Variable
+
+1. **`MONGO_HOST`**:
+   - Specifies the hostname or IP address of the MongoDB server.
+   - Example: `mongodb.atlas.example.com`.
+
+2. **`MONGO_PORT`**:
+   - Specifies the port number on which the MongoDB server is running.
+   - Example: `27017`.
+
+3. **`MONGO_USER`**:
+   - Specifies the username for authenticating with the MongoDB server.
+   - Example: `admin`.
+
+4. **`MONGO_PASSWORD`**:
+   - Specifies the password for authenticating with the MongoDB server.
+   - Example: `supersecretpassword`.
+
+5. **`DEBUG_MODE`**:
+   - Enables or disables debug mode in the application.
+   - Example: `true` (enabled) or `false` (disabled).
+
+---
+
+### How to Use the Script
+
+1. **Run the Script**:
+   Execute the script in your terminal to set the environment variables in the current shell session:
+   ```bash
+   source ./scripts/commands.sh
+   ```
+
+   - The `source` command ensures that the variables are set in the current shell session, not a subshell.
+
+2. **Verify the Variables**:
+   After running the script, you can verify that the variables are set using the `echo` command:
+   ```bash
+   echo $MONGO_HOST
+   echo $MONGO_PORT
+   echo $MONGO_USER
+   echo $MONGO_PASSWORD
+   echo $DEBUG_MODE
+   ```
+
+3. **Run the Application**:
+   Once the environment variables are set, you can run your Go application, and it will use these variables for configuration.
+
+---
+
+### Example Workflow
+
+1. Run the script to set the environment variables:
+   ```bash
+   source ./scripts/commands.sh
+   ```
+
+2. Verify the variables:
+   ```bash
+   echo $MONGO_HOST
+   # Output: mongodb.atlas.example.com
+   ```
+
+3. Run the Go application:
+   ```bash
+   go run main.go
+   ```
+
+---
+
+### Notes
+
+- **Security**: Avoid hardcoding sensitive information (e.g., passwords) in scripts. Use secure methods like .env files or secret management tools in production.
+- **Persistence**: Environment variables set using `export` are only available in the current shell session. To make them persistent, add the `export` commands to your shell's configuration file (e.g., `.bashrc` or `.zshrc`).
+
+This script is a simple and effective way to configure your application using environment variables.
