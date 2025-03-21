@@ -18,12 +18,17 @@ type Config struct {
     DebugMode       bool   `env:"DEBUG_MODE"`
 }
 
-// InitializeConfig initializes the configuration by parsing a .env file or environment variables.
+// InitializeConfig initializes the configuration by first attempting to load a .env file,
+// and falling back to system environment variables if the file is not available.
 func InitializeConfig[T any](config *T) error {
-    // Load .env file if it exists (optional, won't fail if absent)
-    _ = godotenv.Load("../.env")
+    // Attempt to load .env file from a default location (optional)
+    err := godotenv.Load("../.env")
+    if err != nil {
+        // If .env file is not found or cannot be loaded, proceed with system env vars
+        fmt.Printf("Warning: No .env file loaded, falling back to system environment variables: %v\n", err)
+    }
 
-    // Call the generic helper function to populate the config struct
+    // Parse config from environment variables (system vars override .env if both exist)
     return parseConfig(config)
 }
 
@@ -85,4 +90,3 @@ func parseConfig[T any](config *T) error {
     return nil
 }
 
-// Example usage

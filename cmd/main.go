@@ -2,7 +2,7 @@ package main
 
 import (
     "fmt"
-    "github.com/Onemanwolf/go.generic.config/config1" // Replace with your module path
+    "github.com/Onemanwolf/go.generic.config/config" // Replace with your module path
 )
 
 func main() {
